@@ -1,7 +1,8 @@
 # 敏感資訊 - 絕對不上傳
 .env
-*.env
-.env.*
+.env.local
+.env.*.local
+# 注意：.env.example 允許上傳（不含真實 key）
 
 # Python
 __pycache__/
