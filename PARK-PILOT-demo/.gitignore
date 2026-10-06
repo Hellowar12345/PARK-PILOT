@@ -1,0 +1,21 @@
+# 敏感資訊 - 絕對不上傳
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pycache
+.venv/
+venv/
+*.pyc
+
+# 大型模型/資料檔 (optional, 視需求決定)
+# model_lgbm.pkl
+# *.parquet
+# *.db
+
+# OS
+.DS_Store
+Thumbs.db
