@@ -36,10 +36,15 @@ PARK-PILOT/
 │       ├── pilot.html      # 主要 Pilot 介面
 │       ├── index.html      # 測試儀表板
 │       └── game.html       # 停車模擬遊戲
+├── model_lgbm.pkl          # 預訓練 LightGBM 模型（Git LFS，658 MB）
 ├── .env.example            # 環境變數範本
 ├── pyproject.toml          # 套件設定
 └── start.bat               # Windows 一鍵啟動
 ```
+
+> **📦 關於 `model_lgbm.pkl`**  
+> 此檔案透過 [Git LFS](https://git-lfs.github.com/) 管理（658 MB）。  
+> Clone 後需執行 `git lfs pull` 才能下載實際模型檔案。
 
 ---
 
@@ -63,13 +68,22 @@ PARK-PILOT/
 - Windows 10 / 11
 - 網路連線（用於呼叫 Gemini API）
 - [Gemini API Key](https://aistudio.google.com/app/apikey)（免費版即可）
+- [Git LFS](https://git-lfs.github.com/)（用於下載 `model_lgbm.pkl`，安裝一次即可）
 
 ### 安裝步驟
 
-**1. 設定 API Key**
+**1. Clone 專案（含 LFS 模型）**
 
 ```bash
-cp .env.example .env
+git clone https://github.com/Hellowar12345/PARK-PILOT.git
+cd PARK-PILOT
+git lfs pull        # 下載 model_lgbm.pkl（658 MB）
+```
+
+**2. 設定 API Key**
+
+```bash
+copy .env.example .env
 ```
 
 打開 `.env`，填入你自己的 Gemini API Key：
@@ -78,11 +92,11 @@ cp .env.example .env
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-**2. 啟動伺服器**
+**3. 啟動伺服器**
 
 雙擊執行 `start.bat`（第一次執行會自動安裝 uv、Python 與所有套件，約需 3–5 分鐘）
 
-**3. 開啟瀏覽器**
+**4. 開啟瀏覽器**
 
 | 頁面 | 網址 |
 |------|------|
