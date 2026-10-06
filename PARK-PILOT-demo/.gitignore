@@ -11,10 +11,10 @@ __pycache__/
 venv/
 *.pyc
 
-# 大型模型/資料檔 (optional, 視需求決定)
-# model_lgbm.pkl
-# *.parquet
-# *.db
+# 大型模型/資料檔 (超過 GitHub 100MB 限制)
+model_lgbm.pkl
+*.pkl
+agent_traces.db
 
 # OS
 .DS_Store
