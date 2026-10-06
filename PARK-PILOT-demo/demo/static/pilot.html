@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARK-PILOT · 停車代理人</title>
+<link rel="stylesheet" href="/static/pilot.css"/>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><b>PARK-PILOT</b> <span class="subtitle">停車代理人</span></div>
+  <div class="state-pill" id="state-pill" data-state="IDLE">IDLE</div>
+  <div class="sim-time-block">
+    <label>SIM NOW</label>
+    <input type="datetime-local" id="sim-now"/>
+    <button class="btn-mini" onclick="setSimTime()">套用</button>
+  </div>
+  <button class="btn-mini btn-danger" onclick="resetAll()">⟳ 重置</button>
+</header>
+
+<main class="grid">
+
+  <!-- 左：Glass Brain ─────────────────────────────────── -->
+  <section class="panel glass-brain">
+    <div class="panel-header">
+      <span>Agent 思考串流</span>
+      <span class="meta">model: gemini-3.1-flash-lite · tool whitelist 受狀態約束</span>
+    </div>
+    <div class="brain-body">
+      <div class="thinking-area" id="thinking-area">
+        <div class="thinking-placeholder">等待使用者下指令…</div>
+      </div>
+      <div class="toolcalls" id="toolcalls"></div>
+    </div>
+  </section>
+
+  <!-- 右：實體裝置 + 任務 ─────────────────────────────── -->
+  <aside class="right-col">
+
+    <!-- 虛擬 ESP32 OLED -->
+    <section class="panel oled-panel">
+      <div class="panel-header">
+        <span>虛擬 ESP32 顯示器 (OLED + LED)</span>
+        <span class="meta" id="led-state">LED: off</span>
+      </div>
+      <div class="oled-screen">
+        <div class="oled-line" id="oled-line1">PARK-PILOT 待命中</div>
+        <div class="oled-line" id="oled-line2">請對麥克風說目標</div>
+        <div class="oled-line" id="oled-line3"></div>
+      </div>
+      <div class="led-ring" id="led-ring"></div>
+    </section>
+
+    <!-- 6 格停車板 -->
+    <section class="panel sensor-panel">
+      <div class="panel-header">
+        <span>桌面感測板 (Pi 鏡頭 + ESP32 超音波)</span>
+        <span class="meta">點格子模擬「車放上 / 開走」</span>
+      </div>
+      <div class="slots-grid" id="slots-grid"></div>
+      <div class="hint">⭐ = agent 監看的目標格 (右鍵切換目標)</div>
+    </section>
+
+    <!-- Mission card -->
+    <section class="panel mission-panel">
+      <div class="panel-header"><span>當前任務</span></div>
+      <div id="mission-body" class="mission-empty">尚未鎖定任務</div>
+    </section>
+
+    <!-- Alert log -->
+    <section class="panel alert-panel">
+      <div class="panel-header"><span>通知紀錄</span></div>
+      <div id="alert-log" class="alert-log"></div>
+    </section>
+  </aside>
+</main>
+
+<!-- 底部 chat ─────────────────────────────────────────── -->
+<footer class="chatbar">
+  <div class="preset-buttons">
+    <button class="preset" onclick="sendPreset('我七點要到板橋車站吃飯，下雨，幫我找個近的停車位')">板橋車站 / 19:00 / 下雨</button>
+    <button class="preset" onclick="sendPreset('我等等要去新埔捷運站，大概八點到')">新埔 / 20:00</button>
+    <button class="preset" onclick="sendPreset('幫我安排到府中捷運站，現在過去最方便的停車位')">府中 / 現在</button>
+    <button class="preset preset-danger" onclick="dropLegoOnTarget()">模擬車位被佔 (觸發 re-plan)</button>
+  </div>
+  <form id="chat-form" onsubmit="event.preventDefault(); sendChat()">
+    <input type="text" id="chat-input" placeholder="對 agent 說話：『我七點要到板橋車站…』" autocomplete="off"/>
+    <button type="submit" class="btn-send">↪ 送出</button>
+  </form>
+</footer>
+
+<script src="/static/pilot.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARK-PILOT · 停車賽局</title>
+<link rel="stylesheet" href="/static/game.css"/>
+</head>
+<body>
+
+<header class="g-top">
+  <div class="g-title"><b>停車賽局</b> · 當每個人都信同一個準預測，誰還停得到車？</div>
+  <div class="g-controls">
+    <label>地點 <input id="dest" value="板橋車站" /></label>
+    <label>車隊規模 <input id="ndrivers" type="number" min="6" max="120" value="" placeholder="auto"/></label>
+    <label>耐心(繞幾條) <input id="patience" type="number" min="1" max="5" value="2"/></label>
+    <button class="g-btn" id="btn-run">重新生成場景</button>
+    <button class="g-btn g-play" id="btn-play">播放對照</button>
+  </div>
+</header>
+
+<div class="g-scenario" id="scenario-bar">點「重新生成場景」載入真實新北路段 + LightGBM 預測…</div>
+
+<main class="g-arena">
+  <!-- 左：各自為政 -->
+  <section class="g-world" id="world-a">
+    <div class="g-world-head">
+      <span class="g-world-name">各自為政</span>
+      <span class="g-world-sub">每台車都照預測衝「最空」那條街</span>
+    </div>
+    <div class="g-lots" id="lots-a"></div>
+    <div class="g-road" id="road-a"></div>
+    <div class="g-score">
+      <div class="g-stat"><span class="g-num" id="a-parked">0</span><span class="g-lbl">已停車</span></div>
+      <div class="g-stat danger"><span class="g-num" id="a-gaveup">0</span><span class="g-lbl">放棄離開</span></div>
+      <div class="g-stat warn"><span class="g-num" id="a-reroute">0</span><span class="g-lbl">繞圈次數</span></div>
+    </div>
+  </section>
+
+  <!-- 右：協調 -->
+  <section class="g-world" id="world-b">
+    <div class="g-world-head">
+      <span class="g-world-name pilot">PARK-PILOT 協調分流</span>
+      <span class="g-world-sub">代理人看到大家會搶 → 主動把車隊分散</span>
+    </div>
+    <div class="g-lots" id="lots-b"></div>
+    <div class="g-road" id="road-b"></div>
+    <div class="g-score">
+      <div class="g-stat"><span class="g-num" id="b-parked">0</span><span class="g-lbl">已停車</span></div>
+      <div class="g-stat danger"><span class="g-num" id="b-gaveup">0</span><span class="g-lbl">放棄離開</span></div>
+      <div class="g-stat warn"><span class="g-num" id="b-reroute">0</span><span class="g-lbl">繞圈次數</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="g-caption" id="caption">
+  按 <b>重新生成場景</b> → <b>播放對照</b>，看同一批車、同一個準確預測，在兩種世界裡的不同命運。
+</footer>
+
+<script src="/static/game.js"></script>
+</body>
+</html>

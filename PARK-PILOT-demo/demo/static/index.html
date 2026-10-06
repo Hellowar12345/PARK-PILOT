@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>停車空位預測 — 新北市路邊停車</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+<!-- ── 頂部控制列 ── -->
+<header class="topbar">
+  <div class="logo">🅿 停車空位預測</div>
+
+  <div class="controls">
+    <!-- 模式切換 -->
+    <div class="mode-tabs">
+      <button class="tab active" data-mode="simulation" onclick="setMode('simulation')">📂 模擬模式</button>
+      <button class="tab" data-mode="live" onclick="setMode('live')">📡 即時模式</button>
+    </div>
+
+    <!-- 模擬時間（模擬模式才顯示）-->
+    <div id="sim-time-block" class="ctrl-group">
+      <label>模擬時間</label>
+      <input type="datetime-local" id="sim-now" value="2026-04-21T17:00"/>
+    </div>
+
+    <!-- ETA -->
+    <div class="ctrl-group">
+      <label>預計抵達 <span id="eta-label">15</span> 分後</label>
+      <input type="range" id="eta" min="0" max="60" value="15"
+             oninput="document.getElementById('eta-label').textContent=this.value"/>
+    </div>
+
+    <!-- 半徑 -->
+    <div class="ctrl-group">
+      <label>搜尋半徑 <span id="radius-label">500</span> m</label>
+      <input type="range" id="radius" min="200" max="2000" step="100" value="500"
+             oninput="document.getElementById('radius-label').textContent=this.value"/>
+    </div>
+
+    <button class="btn-predict" id="btn-predict" onclick="doPredictFromMarker()">🔍 搜尋停車位</button>
+  </div>
+
+  <div id="live-banner" class="live-banner" style="display:none">
+    ⚠️ 即時模式：正在蒐集感測器資料，請稍候...
+  </div>
+</header>
+
+<!-- ── 主體 ── -->
+<div class="main-layout">
+  <!-- 地圖 -->
+  <div id="map"></div>
+
+  <!-- 側欄 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-hint" id="sidebar-hint">
+      <p>👆 點擊地圖選擇目的地</p>
+      <p style="font-size:12px;color:#888">系統將預測你<b>抵達時</b>的停車空位，<br>而不只是「現在」的狀況</p>
+    </div>
+    <div id="result-list"></div>
+  </aside>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
