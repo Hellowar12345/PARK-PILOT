@@ -37,14 +37,15 @@ PARK-PILOT/
 │       ├── index.html      # 測試儀表板
 │       └── game.html       # 停車模擬遊戲
 ├── model_lgbm.pkl          # 預訓練 LightGBM 模型（Git LFS，658 MB）
+├── *.parquet               # 特徵與歷史資料庫（供模型推論與模擬使用）
 ├── .env.example            # 環境變數範本
 ├── pyproject.toml          # 套件設定
 └── start.bat               # Windows 一鍵啟動
 ```
 
-> **📦 關於 `model_lgbm.pkl`**  
-> 此檔案透過 [Git LFS](https://git-lfs.github.com/) 管理（658 MB）。  
-> Clone 後需執行 `git lfs pull` 才能下載實際模型檔案。
+> **📦 關於資料與模型檔**  
+> - `model_lgbm.pkl`: 核心預測模型，透過 [Git LFS](https://git-lfs.github.com/) 管理（658 MB）。Clone 後需執行 `git lfs pull` 才能下載實際模型。  
+> - `*.parquet`: 存放不同路段歷史統計特徵、經驗分位數（風險評估）及模擬用即時觀測資料，是系統運作不可或缺的資料庫。
 
 ---
 
