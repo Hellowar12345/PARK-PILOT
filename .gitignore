@@ -12,10 +12,9 @@ __pycache__/
 venv/
 *.pyc
 
-# 大型模型/資料檔 (超過 GitHub 100MB 限制)
-model_lgbm.pkl
-*.pkl
+# 大型資料檔
 agent_traces.db
+# 注意：*.pkl 由 Git LFS 管理（見 .gitattributes），不需在此忽略
 
 # OS
 .DS_Store
