@@ -36,6 +36,7 @@ PARK-PILOT/
 │       ├── pilot.html      # 主要 Pilot 介面
 │       ├── index.html      # 測試儀表板
 │       └── game.html       # 停車模擬遊戲
+├── report.html             # 專案報告
 ├── model_lgbm.pkl          # 預訓練 LightGBM 模型（Git LFS，658 MB）
 ├── *.parquet               # 特徵與歷史資料庫（供模型推論與模擬使用）
 ├── .env.example            # 環境變數範本
